@@ -383,7 +383,7 @@ MSC_RV PL_MSCGetStatus( MSCLPTokenConnection pConnection,
   pStatusInfo->totalMemory = 0x00;
   pStatusInfo->usedPINs    = 1;
   pStatusInfo->usedKeys    = 3;
-  pStatusInfo->loggedID    = 0;
+  pStatusInfo->loggedID    = pConnection->loggedIDs;;
 
 
   return MSC_SUCCESS;
@@ -440,7 +440,7 @@ MSC_RV PL_MSCGetCapabilities( MSCLPTokenConnection pConnection, MSCULong32 Tag,
     break;
 
   case MSC_TAG_CAPABLE_OBJ_MAXNUM:
-    ulValue = 3;
+    ulValue = 17;
     tagType = 4;
     break;
 
@@ -577,6 +577,9 @@ MSC_RV PL_MSCComputeCrypt( MSCLPTokenConnection pConnection,
   MSCULong32 pkiSize;
   MSCTransmitBuffer tBuffer;
 
+  rv = CACLoadAndCacheData(pConnection);
+  if (rv != MSC_SUCCESS) return rv;
+
   if ( inputDataSize != CAC_MAXSIZE_SIGNDATA ) {
     return MSC_INVALID_PARAMETER;
   }
@@ -586,7 +589,8 @@ MSC_RV PL_MSCComputeCrypt( MSCLPTokenConnection pConnection,
   }
 
   if ( cryptInit->cipherDirection != MSC_DIR_SIGN &&
-       cryptInit->cipherDirection != MSC_DIR_ENCRYPT ) {
+       cryptInit->cipherDirection != MSC_DIR_ENCRYPT &&
+	   cryptInit->cipherDirection != MSC_DIR_DECRYPT) {
     return MSC_INVALID_PARAMETER;
   }
 
@@ -719,6 +723,9 @@ MSC_RV PL_MSCListKeys( MSCLPTokenConnection pConnection,
   pKeyInfo->keyACL.readPermission  = MSC_AUT_NONE;
   pKeyInfo->keyACL.writePermission = MSC_AUT_NONE;
   pKeyInfo->keyACL.usePermission   = MSC_AUT_PIN_1;
+  pKeyInfo->keyPolicy.cipherMode   = MSC_KEYPOLICY_MODE_RSA_NOPAD;
+  pKeyInfo->keyPolicy.cipherDirection = MSC_KEYPOLICY_DIR_SIGN | MSC_KEYPOLICY_DIR_VERIFY |
+    MSC_KEYPOLICY_DIR_ENCRYPT | MSC_KEYPOLICY_DIR_DECRYPT;  
 
   seq += 1;
 
@@ -747,6 +754,9 @@ MSC_RV PL_MSCVerifyPIN( MSCLPTokenConnection pConnection, MSCUChar8 pinNum,
   MSCPUChar8 rxBuffer;
   MSCUChar8 pinPad[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
   MSCTransmitBuffer tBuffer;
+  
+  rv = CACLoadAndCacheData(pConnection);
+  if (rv != MSC_SUCCESS) return rv;  
   
   txBuffer = tBuffer.pBuffer;
   rxBuffer = tBuffer.apduResponse;
@@ -785,10 +795,13 @@ MSC_RV PL_MSCVerifyPIN( MSCLPTokenConnection pConnection, MSCUChar8 pinNum,
 
   if(tBuffer.apduResponseSize == 2) {
     if (rxBuffer[0] == 0x90 && rxBuffer[1] == 0x00 ) {
+      pConnection->loggedIDs |= MSC_AUT_PIN_1;
       return MSC_SUCCESS;
     } else if ( rxBuffer[0] == 0x63 ) {
+      pConnection->loggedIDs = 0;
       return MSC_AUTH_FAILED;
     } else {
+      pConnection->loggedIDs = 0;
       return convertSW(rxBuffer);
     }
   } else {
@@ -1466,8 +1479,9 @@ MSC_RV PL_MSCFinalizePlugin( MSCLPTokenConnection pConnection ) {
   cacIDCertSize     = 0;
   cacESignCertSize  = 0;
   cacECryptCertSize = 0;
-
-
+  dataIsCached      = 0;
+  pConnection->loggedIDs  = 0;
+  
   return MSC_SUCCESS;
 }
 

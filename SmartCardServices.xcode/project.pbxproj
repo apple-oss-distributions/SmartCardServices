@@ -3,14 +3,19 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 38;
+	objectVersion = 39;
 	objects = {
 		01B2E3050091091211CD2984 = {
 			buildRules = (
 			);
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				OPTIMIZATION_CFLAGS = "-O0";
+				ZERO_LINK = YES;
 			};
 			isa = PBXBuildStyle;
 			name = Development;
@@ -20,6 +25,8 @@
 			);
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				ZERO_LINK = NO;
 			};
 			isa = PBXBuildStyle;
 			name = Deployment;
@@ -29,22 +36,101 @@
 //012
 //013
 //014
+//D60
+//D61
+//D62
+//D63
+//D64
+		D6F8CD5E05C09281005FB422 = {
+			containerPortal = F5294A4F0090C4CA01CD285A;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = F5448E020379EE2A01B94948;
+			remoteInfo = MCardPlugin;
+		};
+		D6F8CD5F05C09281005FB422 = {
+			containerPortal = F5294A4F0090C4CA01CD285A;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = F5294A800090C73501CD285A;
+			remoteInfo = pcscd;
+		};
+		D6F8CD6005C09281005FB422 = {
+			containerPortal = F5294A4F0090C4CA01CD285A;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = F5448E100379EE6401B94948;
+			remoteInfo = CFlexPlugin;
+		};
+		D6F8CD6205C09281005FB422 = {
+			containerPortal = F5294A4F0090C4CA01CD285A;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = F538896903953B79012F6BBF;
+			remoteInfo = InstallPhase;
+		};
+		D6F8CD6305C09281005FB422 = {
+			containerPortal = F5294A4F0090C4CA01CD285A;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = F5448E090379EE3601B94948;
+			remoteInfo = CACPlugin;
+		};
+		D6F8CD6405C09281005FB422 = {
+			containerPortal = F5294A4F0090C4CA01CD285A;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = F537A7D10379ED7501B94948;
+			remoteInfo = PKCS11;
+		};
+		D6F8CD6505C09281005FB422 = {
+			containerPortal = F5294A4F0090C4CA01CD285A;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = F51121270272F895017BB957;
+			remoteInfo = pcsctool;
+		};
+		D6F8CD6605C09281005FB422 = {
+			containerPortal = F5294A4F0090C4CA01CD285A;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = F5294AD40090CAE601CD285A;
+			remoteInfo = pcsctest;
+		};
+		D6F8CD6705C09281005FB422 = {
+			containerPortal = F5294A4F0090C4CA01CD285A;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = F52A93D402541D8C01B94B21;
+			remoteInfo = PCSC;
+		};
+//D60
+//D61
+//D62
+//D63
+//D64
 //F50
 //F51
 //F52
 //F53
 //F54
 		F503CACD025425E601B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = testpcsc.c;
 			path = src/PCSC/testpcsc.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F503CACE025425E601B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = muscletest.c;
 			path = src/PCSC/muscletest.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F503CACF025425E601B94B21 = {
 			fileRef = F503CACD025425E601B94B21;
@@ -53,16 +139,22 @@
 			};
 		};
 		F503CADB025428F601B94B21 = {
+			fallbackIsa = PBXFileReference;
 			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
 			name = CoreFoundation.framework;
 			path = /System/Library/Frameworks/CoreFoundation.framework;
 			refType = 0;
+			sourceTree = "<absolute>";
 		};
 		F503CADC025428F601B94B21 = {
+			fallbackIsa = PBXFileReference;
 			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
 			name = IOKit.framework;
 			path = /System/Library/Frameworks/IOKit.framework;
 			refType = 0;
+			sourceTree = "<absolute>";
 		};
 		F503CADD025428F601B94B21 = {
 			fileRef = F503CADB025428F601B94B21;
@@ -78,9 +170,11 @@
 		};
 		F503CADF0254294101B94B21 = {
 			isa = PBXFileReference;
+			lastKnownFileType = archive.ar;
 			name = libl.a;
 			path = /usr/lib/libl.a;
 			refType = 0;
+			sourceTree = "<absolute>";
 		};
 		F503CAE00254294101B94B21 = {
 			fileRef = F503CADF0254294101B94B21;
@@ -104,9 +198,12 @@
 			};
 		};
 		F51121260272F895017BB957 = {
+			explicitFileType = "compiled.mach-o.executable";
+			fallbackIsa = PBXFileReference;
 			isa = PBXExecutableFileReference;
 			path = pcsctool;
 			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F51121270272F895017BB957 = {
 			buildPhases = (
@@ -116,7 +213,7 @@
 				F511212B0272F895017BB957,
 			);
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 15.1;
 				FRAMEWORK_SEARCH_PATHS = "";
 				INSTALL_PATH = /usr/bin;
 				OTHER_CFLAGS = "";
@@ -134,7 +231,6 @@
 			productInstallPath = /usr/bin/;
 			productName = pcsctool;
 			productReference = F51121260272F895017BB957;
-			shouldUseHeadermap = 0;
 		};
 		F51121280272F895017BB957 = {
 			buildActionMask = 2147483647;
@@ -167,10 +263,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F511212C0272F8D9017BB957 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = bundleTool.c;
 			path = src/PCSC/utils/bundleTool.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F511212D0272F8D9017BB957 = {
 			fileRef = F511212C0272F8D9017BB957;
@@ -181,24 +280,31 @@
 		F511213B0272FA1C017BB957 = {
 			isa = PBXTargetDependency;
 			target = F51121270272F895017BB957;
+			targetProxy = D6F8CD6505C09281005FB422;
 		};
 		F520A5F60257B49C01D97E8A = {
 			isa = PBXTargetDependency;
 			target = F52A93D402541D8C01B94B21;
+			targetProxy = D6F8CD6705C09281005FB422;
 		};
 		F520E3A001F6204201B94B28 = {
 			isa = PBXTargetDependency;
 			target = F5294A800090C73501CD285A;
+			targetProxy = D6F8CD5F05C09281005FB422;
 		};
 		F520E3A301F6204201B94B28 = {
 			isa = PBXTargetDependency;
 			target = F5294AD40090CAE601CD285A;
+			targetProxy = D6F8CD6605C09281005FB422;
 		};
 		F5294A4F0090C4CA01CD285A = {
+			buildSettings = {
+			};
 			buildStyles = (
 				01B2E3050091091211CD2984,
 				01B2E3060091091211CD2984,
 			);
+			hasScannedForEncodings = 1;
 			isa = PBXProject;
 			mainGroup = F5294A500090C4CA01CD285A;
 			productRefGroup = F5294A520090C5DF01CD285A;
@@ -229,6 +335,7 @@
 			);
 			isa = PBXGroup;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F5294A510090C54E01CD285A = {
 			buildPhases = (
@@ -255,7 +362,6 @@
 			isa = PBXAggregateTarget;
 			name = World;
 			productName = World;
-			shouldUseHeadermap = 0;
 		};
 		F5294A520090C5DF01CD285A = {
 			children = (
@@ -271,11 +377,15 @@
 			isa = PBXGroup;
 			name = Products;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F5294A7E0090C73501CD285A = {
+			explicitFileType = "compiled.mach-o.executable";
+			fallbackIsa = PBXFileReference;
 			isa = PBXExecutableFileReference;
 			path = pcscd;
 			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F5294A800090C73501CD285A = {
 			buildPhases = (
@@ -285,7 +395,7 @@
 				F5294A840090C73501CD285A,
 			);
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 15.1;
 				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = "/System/Library/Frameworks/CoreFoundation.framework/Headers /System/Library/Frameworks/IOKit.framework/Headers/usb /System/Library/Frameworks/IOKit.framework/Headers";
 				INSTALL_PATH = /usr/sbin;
@@ -305,7 +415,6 @@
 			productInstallPath = /usr/sbin;
 			productName = pcscd;
 			productReference = F5294A7E0090C73501CD285A;
-			shouldUseHeadermap = 0;
 		};
 		F5294A810090C73501CD285A = {
 			buildActionMask = 2147483647;
@@ -373,9 +482,12 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F5294AD30090CAE601CD285A = {
+			explicitFileType = "compiled.mach-o.executable";
+			fallbackIsa = PBXFileReference;
 			isa = PBXExecutableFileReference;
 			path = pcsctest;
 			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F5294AD40090CAE601CD285A = {
 			buildPhases = (
@@ -385,7 +497,7 @@
 				F5294AD80090CAE601CD285A,
 			);
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 15.1;
 				FRAMEWORK_SEARCH_PATHS = "";
 				INSTALL_PATH = /usr/bin;
 				OTHER_CFLAGS = "";
@@ -403,7 +515,6 @@
 			productInstallPath = /usr/bin;
 			productName = testpcsc;
 			productReference = F5294AD30090CAE601CD285A;
-			shouldUseHeadermap = 0;
 		};
 		F5294AD50090CAE601CD285A = {
 			buildActionMask = 2147483647;
@@ -436,9 +547,12 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F52A93D102541D8C01B94B21 = {
+			explicitFileType = wrapper.framework;
+			fallbackIsa = PBXFileReference;
 			isa = PBXFrameworkReference;
 			path = PCSC.framework;
 			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F52A93D402541D8C01B94B21 = {
 			buildPhases = (
@@ -449,9 +563,9 @@
 				F52A93D902541D8C01B94B21,
 			);
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 15.1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 15;
+				DYLIB_CURRENT_VERSION = 15.1;
 				FRAMEWORK_SEARCH_PATHS = "";
 				FRAMEWORK_VERSION = A;
 				INSTALL_PATH = "$(SYSTEM_LIBRARY_DIR)/Frameworks";
@@ -491,7 +605,7 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.0</string>
+	<string>4.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -499,7 +613,6 @@
 </dict>
 </plist>
 ";
-			shouldUseHeadermap = 0;
 		};
 		F52A93D502541D8C01B94B21 = {
 			buildActionMask = 2147483647;
@@ -558,10 +671,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F52A94510254232701B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = atrhandler.c;
 			path = src/PCSC/atrhandler.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94520254232701B94B21 = {
 			fileRef = F52A94510254232701B94B21;
@@ -570,190 +686,283 @@
 			};
 		};
 		F52A948F0254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = atrhandler.h;
 			path = src/PCSC/atrhandler.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94900254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = configfile.c;
 			path = src/PCSC/configfile.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94910254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = configfile.h;
 			path = src/PCSC/configfile.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94920254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = debuglog.c;
 			path = src/PCSC/debuglog.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94930254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = debuglog.h;
 			path = src/PCSC/debuglog.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94940254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = dyn_generic.h;
 			path = src/PCSC/dyn_generic.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94950254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = dyn_macosx.c;
 			path = src/PCSC/dyn_macosx.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94960254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = eventhandler.c;
 			path = src/PCSC/eventhandler.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94970254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = eventhandler.h;
 			path = src/PCSC/eventhandler.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94980254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = hotplug_macosx.c;
 			path = src/PCSC/hotplug_macosx.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94990254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = hotplug.h;
 			path = src/PCSC/hotplug.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A949A0254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = ifdhandler.h;
 			path = src/PCSC/ifdhandler.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A949B0254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = ifdwrapper.c;
 			path = src/PCSC/ifdwrapper.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A949C0254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = ifdwrapper.h;
 			path = src/PCSC/ifdwrapper.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A949D0254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = pcscdaemon.c;
 			path = src/PCSC/pcscdaemon.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A949E0254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = pcsclite.h;
 			path = src/PCSC/pcsclite.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A949F0254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = prothandler.c;
 			path = src/PCSC/prothandler.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94A00254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = prothandler.h;
 			path = src/PCSC/prothandler.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94A10254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = readerfactory.c;
 			path = src/PCSC/readerfactory.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94A20254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = readerfactory.h;
 			path = src/PCSC/readerfactory.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94A30254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = sys_generic.h;
 			path = src/PCSC/sys_generic.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94A40254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = sys_unix.c;
 			path = src/PCSC/sys_unix.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94A50254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = thread_generic.h;
 			path = src/PCSC/thread_generic.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94A60254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = thread_macosx.c;
 			path = src/PCSC/thread_macosx.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94A70254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = winscard_msg.c;
 			path = src/PCSC/winscard_msg.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94A80254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = winscard_msg.h;
 			path = src/PCSC/winscard_msg.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94A90254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = winscard_svc.c;
 			path = src/PCSC/winscard_svc.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94AA0254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = winscard_svc.h;
 			path = src/PCSC/winscard_svc.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94AB0254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = winscard.c;
 			path = src/PCSC/winscard.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94AC0254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = winscard.h;
 			path = src/PCSC/winscard.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94AD0254242101B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = wintypes.h;
 			path = src/PCSC/wintypes.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94AE0254242101B94B21 = {
 			fileRef = F52A948F0254242101B94B21;
@@ -942,46 +1151,67 @@
 			};
 		};
 		F52A94CD025424AC01B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = mscdefines.h;
 			path = src/PCSC/mscdefines.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94CE025424AC01B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = musclecard.c;
 			path = src/PCSC/musclecard.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94CF025424AC01B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = musclecard.h;
 			path = src/PCSC/musclecard.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94D0025424AC01B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = tokenfactory.c;
 			path = src/PCSC/tokenfactory.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94D1025424AC01B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = tokenfactory.h;
 			path = src/PCSC/tokenfactory.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94D2025424AC01B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = tokenparser.c;
 			path = src/PCSC/tokenparser.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94D4025424AC01B94B21 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = winscard_clnt.c;
 			path = src/PCSC/winscard_clnt.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F52A94D5025424AC01B94B21 = {
 			fileRef = F52A94A50254242101B94B21;
@@ -1106,10 +1336,13 @@
 			};
 		};
 		F537A7B30379EB7B01B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = config.h;
 			path = src/PCSC/config.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F537A7B40379EB7B01B94948 = {
 			fileRef = F537A7B30379EB7B01B94948;
@@ -1172,6 +1405,7 @@
 			name = PCSC;
 			path = "";
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F537A7C80379ECD501B94948 = {
 			children = (
@@ -1207,11 +1441,11 @@
 				F5448E3C0379EF2501B94948,
 				F5448E3D0379EF2501B94948,
 				F5448E3E0379EF2501B94948,
-				F5448E700379F0AE01B94948,
 			);
 			isa = PBXGroup;
 			name = PKCS11;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F537A7C90379ECDC01B94948 = {
 			children = (
@@ -1222,6 +1456,7 @@
 			isa = PBXGroup;
 			name = CACPlugin;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F537A7CA0379ECE301B94948 = {
 			children = (
@@ -1231,6 +1466,7 @@
 			isa = PBXGroup;
 			name = CFlexPlugin;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F537A7CB0379ECEB01B94948 = {
 			children = (
@@ -1240,6 +1476,7 @@
 			isa = PBXGroup;
 			name = MCardPlugin;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F537A7CC0379ED7501B94948 = {
 			buildActionMask = 2147483647;
@@ -1298,7 +1535,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5448E6D0379F08001B94948,
-				F5448E710379F0AE01B94948,
 			);
 			isa = PBXFrameworksBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1321,7 +1557,7 @@
 			buildSettings = {
 				INSTALL_PATH = /usr/libexec/SmartCardServices/pkcs11;
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-lcrypto";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = pkcs11;
 				SECTORDER_FLAGS = "";
@@ -1356,7 +1592,7 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.0</string>
+	<string>4.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -1364,12 +1600,14 @@
 </dict>
 </plist>
 ";
-			shouldUseHeadermap = 0;
 		};
 		F537A7D20379ED7501B94948 = {
+			explicitFileType = wrapper.cfbundle;
+			fallbackIsa = PBXFileReference;
 			isa = PBXBundleReference;
 			path = pkcs11.bundle;
 			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F538896903953B79012F6BBF = {
 			buildArgumentsString = "-f Makefile.installPhase $ALL_SETTINGS $ACTION";
@@ -1389,11 +1627,8 @@
 			);
 			isa = PBXLegacyTarget;
 			name = InstallPhase;
+			passBuildSettingsInEnvironment = 1;
 			productName = InstallPhase;
-			settingsToExpand = 6;
-			settingsToPassInEnvironment = 287;
-			settingsToPassOnCommandLine = 280;
-			shouldUseHeadermap = 0;
 		};
 		F538896A0397E93B012F6BBF = {
 			children = (
@@ -1401,6 +1636,7 @@
 			isa = PBXGroup;
 			name = InstallPhase;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F5448DFD0379EE2A01B94948 = {
 			buildActionMask = 2147483647;
@@ -1486,7 +1722,7 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.0</string>
+	<string>4.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -1502,12 +1738,14 @@
 </dict>
 </plist>
 ";
-			shouldUseHeadermap = 0;
 		};
 		F5448E030379EE2A01B94948 = {
+			explicitFileType = wrapper.cfbundle;
+			fallbackIsa = PBXFileReference;
 			isa = PBXBundleReference;
 			path = mscMuscleCard.bundle;
 			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F5448E040379EE3601B94948 = {
 			buildActionMask = 2147483647;
@@ -1594,7 +1832,7 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.0</string>
+	<string>4.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -1610,12 +1848,14 @@
 </dict>
 </plist>
 ";
-			shouldUseHeadermap = 0;
 		};
 		F5448E0A0379EE3601B94948 = {
+			explicitFileType = wrapper.cfbundle;
+			fallbackIsa = PBXFileReference;
 			isa = PBXBundleReference;
 			path = commonAccessCard.bundle;
 			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F5448E0B0379EE6401B94948 = {
 			buildActionMask = 2147483647;
@@ -1701,7 +1941,7 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.0</string>
+	<string>4.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -1717,24 +1957,32 @@
 </dict>
 </plist>
 ";
-			shouldUseHeadermap = 0;
 		};
 		F5448E110379EE6401B94948 = {
+			explicitFileType = wrapper.cfbundle;
+			fallbackIsa = PBXFileReference;
 			isa = PBXBundleReference;
 			path = slbCryptoflex.bundle;
 			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F5448E120379EEA101B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = musclecardApplet.c;
 			path = src/MCardPlugin/musclecardApplet.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E130379EEA101B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = musclecardApplet.h;
 			path = src/MCardPlugin/musclecardApplet.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E140379EEA101B94948 = {
 			fileRef = F5448E120379EEA101B94948;
@@ -1749,16 +1997,22 @@
 			};
 		};
 		F5448E160379EEC301B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = cryptoflex.c;
 			path = src/CFlexPlugin/cryptoflex.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E170379EEC301B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = cryptoflex.h;
 			path = src/CFlexPlugin/cryptoflex.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E180379EEC301B94948 = {
 			fileRef = F5448E160379EEC301B94948;
@@ -1773,16 +2027,22 @@
 			};
 		};
 		F5448E1A0379EEDD01B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = commonAccessCard.c;
 			path = src/CACPlugin/commonAccessCard.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E1B0379EEDD01B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = commonAccessCard.h;
 			path = src/CACPlugin/commonAccessCard.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E1C0379EEDD01B94948 = {
 			fileRef = F5448E1A0379EEDD01B94948;
@@ -1797,196 +2057,292 @@
 			};
 		};
 		F5448E1E0379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = cryptoki_unix.h;
 			path = src/PKCS11/cryptoki_unix.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E1F0379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = cryptoki.h;
 			path = src/PKCS11/cryptoki.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E200379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11_crypt.c;
 			path = src/PKCS11/p11_crypt.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E210379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11_digest.c;
 			path = src/PKCS11/p11_digest.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E220379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11_dual.c;
 			path = src/PKCS11/p11_dual.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E230379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11_ext.c;
 			path = src/PKCS11/p11_ext.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E240379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11_general.c;
 			path = src/PKCS11/p11_general.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E250379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11_key.c;
 			path = src/PKCS11/p11_key.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E260379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11_object.c;
 			path = src/PKCS11/p11_object.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E270379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11_parallel.c;
 			path = src/PKCS11/p11_parallel.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E280379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11_random.c;
 			path = src/PKCS11/p11_random.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E290379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11_session.c;
 			path = src/PKCS11/p11_session.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E2A0379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11_sign.c;
 			path = src/PKCS11/p11_sign.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E2B0379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11_token.c;
 			path = src/PKCS11/p11_token.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E2C0379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11_verify.c;
 			path = src/PKCS11/p11_verify.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E2D0379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11x_async.c;
 			path = src/PKCS11/p11x_async.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E2E0379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11x_bio.c;
 			path = src/PKCS11/p11x_bio.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E2F0379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11x_error.c;
 			path = src/PKCS11/p11x_error.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E300379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11x_log.c;
 			path = src/PKCS11/p11x_log.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E310379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11x_msc.c;
 			path = src/PKCS11/p11x_msc.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E320379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = p11x_msc.h;
 			path = src/PKCS11/p11x_msc.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E330379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11x_object.c;
 			path = src/PKCS11/p11x_object.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E340379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11x_prefs.c;
 			path = src/PKCS11/p11x_prefs.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E350379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11x_session.c;
 			path = src/PKCS11/p11x_session.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E360379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11x_slot.c;
 			path = src/PKCS11/p11x_slot.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E370379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11x_state.c;
 			path = src/PKCS11/p11x_state.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E380379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11x_thread.c;
 			path = src/PKCS11/p11x_thread.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E3A0379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = p11x_util.c;
 			path = src/PKCS11/p11x_util.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E3B0379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = pkcs11.h;
 			path = src/PKCS11/pkcs11.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E3C0379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = pkcs11f.h;
 			path = src/PKCS11/pkcs11f.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E3D0379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = pkcs11t.h;
 			path = src/PKCS11/pkcs11t.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E3E0379EF2501B94948 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = thread_generic.h;
 			path = src/PKCS11/thread_generic.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F5448E3F0379EF2501B94948 = {
 			fileRef = F5448E1E0379EF2501B94948;
@@ -2181,10 +2537,13 @@
 			};
 		};
 		F5448E630379F08001B94948 = {
+			fallbackIsa = PBXFileReference;
 			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
 			name = PCSC.framework;
 			path = /System/Library/Frameworks/PCSC.framework;
 			refType = 0;
+			sourceTree = "<absolute>";
 		};
 		F5448E6A0379F08001B94948 = {
 			fileRef = F5448E630379F08001B94948;
@@ -2222,23 +2581,13 @@
 			settings = {
 			};
 		};
-		F5448E700379F0AE01B94948 = {
-			isa = PBXFileReference;
-			name = libcrypto.dylib;
-			path = /usr/lib/libcrypto.0.9.dylib;
-			refType = 0;
-		};
-		F5448E710379F0AE01B94948 = {
-			fileRef = F5448E700379F0AE01B94948;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
 		F5448E750379F15F01B94948 = {
 			isa = PBXFileReference;
+			lastKnownFileType = "compiled.mach-o.dylib";
 			name = libz.dylib;
 			path = /usr/lib/libz.1.1.3.dylib;
 			refType = 0;
+			sourceTree = "<absolute>";
 		};
 		F5448E760379F15F01B94948 = {
 			fileRef = F5448E750379F15F01B94948;
@@ -2249,28 +2598,36 @@
 		F5448E810379FE0101B94948 = {
 			isa = PBXTargetDependency;
 			target = F537A7D10379ED7501B94948;
+			targetProxy = D6F8CD6405C09281005FB422;
 		};
 		F5448E820379FE0501B94948 = {
 			isa = PBXTargetDependency;
 			target = F5448E020379EE2A01B94948;
+			targetProxy = D6F8CD5E05C09281005FB422;
 		};
 		F5448E830379FE0801B94948 = {
 			isa = PBXTargetDependency;
 			target = F5448E090379EE3601B94948;
+			targetProxy = D6F8CD6305C09281005FB422;
 		};
 		F5448E840379FE0C01B94948 = {
 			isa = PBXTargetDependency;
 			target = F5448E100379EE6401B94948;
+			targetProxy = D6F8CD6005C09281005FB422;
 		};
 		F54DC28B0397F35F01115D8D = {
 			isa = PBXTargetDependency;
 			target = F538896903953B79012F6BBF;
+			targetProxy = D6F8CD6205C09281005FB422;
 		};
 		F555DF350274962801D2E99F = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			name = powermgt_macosx.c;
 			path = src/PCSC/powermgt_macosx.c;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F555DF360274962801D2E99F = {
 			fileRef = F555DF350274962801D2E99F;
@@ -2279,10 +2636,13 @@
 			};
 		};
 		F555DF370274968F01D2E99F = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = powermgt_generic.h;
 			path = src/PCSC/powermgt_generic.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		F555DF380274968F01D2E99F = {
 			fileRef = F555DF370274968F01D2E99F;

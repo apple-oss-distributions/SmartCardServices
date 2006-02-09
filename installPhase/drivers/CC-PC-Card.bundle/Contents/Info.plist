@@ -5,26 +5,26 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>CRYPTOCardPCCard</string>
-	<key>CFBundleGetInfoString</key>
-	<string>CRYPTOCard PC Card Reader</string>
+	<string>CC-PC-Card</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>CRYPTOCard PC Card Reader</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>6.0</string>
 	<key>CFBundleSignature</key>
-	<string>CCrd</string>
+	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>6.0.1d3</string>
+	<string>0.0.1d1</string>
 	<key>ifdFriendlyName</key>
-	<string>CRYPTOCard PC Card Reader</string>
-	<key>ifdVendorID</key>
-	<string>2bd</string>
+	<string>CRYPTOCard</string>
 	<key>ifdProductID</key>
 	<string>1003</string>
+	<key>ifdVendorID</key>
+	<string>2BD</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.CRYPTOCard.SmartcardReader</string>
+	<key>CFBundleName</key>
+	<string>CRYPTOCardSmartcardDriver</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.1</string>
 </dict>
 </plist>

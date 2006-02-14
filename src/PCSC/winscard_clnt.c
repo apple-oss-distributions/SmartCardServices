@@ -41,6 +41,7 @@ $Id: winscard_clnt.c,v 1.3.30.1 2005/06/17 22:40:12 mb Exp $
 #include <sys/un.h>
 #include <sys/ioctl.h>
 #include <errno.h>
+#include <sys/_endian.h>
 
 #include "config.h"
 #include "wintypes.h"
@@ -57,8 +58,6 @@ $Id: winscard_clnt.c,v 1.3.30.1 2005/06/17 22:40:12 mb Exp $
 #include "sys_generic.h"
 
 #include "winscard_msg.h"
-
-
 
 /* Client context not in use */
 #define CONTEXT_STATUS_FREE             0x0000
@@ -211,10 +210,10 @@ static int MSGClientSendRequest(unsigned int command,
 	request_header *header = (request_header *)request;
 	int retval;
 
-	/* Setup the request header */
-	header->size = requestSize;
-	header->additional_data_size = additionalDataSize;
-	header->command = command;
+	/* Set up the request header */
+	header->size = htonl(requestSize);
+	header->additional_data_size = htonl(additionalDataSize);
+	header->command = htonl(command);
 
 	retval = MSGSendData(appSocket, blockAmount, request, requestSize);
 	if (!retval && additionalDataSize)
@@ -224,6 +223,11 @@ static int MSGClientSendRequest(unsigned int command,
 	/* If the message send failed we close the connection. */
 	if (retval)
 		SCardCloseClientSession();
+
+	/* Restore the modified request header to host byte order */
+	header->size = ntohl(header->size);
+	header->additional_data_size = ntohl(header->additional_data_size);
+	header->command = ntohl(header->command);
 
 	return retval;
 }
@@ -237,6 +241,12 @@ static int MSGClientReceiveReply(void *reply, unsigned int replySize,
 
 	retval = MSGRecieveData(appSocket, PCSCLITE_CLIENT_ATTEMPTS, reply,
 		replySize);
+
+	/* Fix up byte orders on reply */
+	header->size = ntohl(header->size);
+	header->additional_data_size = ntohl(header->additional_data_size);
+	header->rv = ntohl(header->rv);
+
 	if (!retval && header->additional_data_size > 0)
 	{
 		/* Server will never send us back more data than
@@ -386,7 +396,7 @@ static LONG SCardReleaseContextTH(SCARDCONTEXT hContext)
 		release_request request;
 		release_reply reply;
 
-		request.hContext = psContextMap[contextIndice].hServerContext;
+		request.hContext = htonl(psContextMap[contextIndice].hServerContext);
 
 		/* We ignore all the server dieing during a SCardReleaseContext,
 		   since that just means we completed the release. */
@@ -496,8 +506,9 @@ static LONG SCardConnectTH(SCARDCONTEXT hContext, LPCSTR szReader,
 	/* @@@ Consider sending this as additionalData instead. */
 	strncpy(request.szReader, szReader, MAX_READERNAME);
 	
-	request.dwShareMode = dwShareMode;
-	request.dwPreferredProtocols = dwPreferredProtocols;
+	request.hContext = htonl(request.hContext);
+	request.dwShareMode = htonl(dwShareMode);
+	request.dwPreferredProtocols = htonl(dwPreferredProtocols);
 
 	rv = MSGClientSendRequest(SCARD_CONNECT,
 		PCSCLITE_CLIENT_ATTEMPTS, &request, sizeof(request), NULL, 0);
@@ -511,12 +522,13 @@ static LONG SCardConnectTH(SCARDCONTEXT hContext, LPCSTR szReader,
 	if (rv)
 		return SCARD_E_UNKNOWN_READER;
 
-	if (reply.header.rv == SCARD_S_SUCCESS)
+	if (reply.header.rv == SCARD_S_SUCCESS)	//jch
 	{
 		/*
 		 * Keep track of the handle locally 
 		 */
-		*pdwActiveProtocol = reply.pdwActiveProtocol;
+		*pdwActiveProtocol = ntohl(reply.pdwActiveProtocol);
+		reply.phCard = ntohl(reply.phCard);
 		rv = SCardAddHandle(reply.phCard, (LPSTR) szReader);
 		if (rv)
 			return rv;
@@ -575,10 +587,10 @@ static LONG SCardReconnectTH(SCARDHANDLE hCard, DWORD dwShareMode,
 	if (rv)
 		return rv;
 
-	request.hCard = hCard;
-	request.dwShareMode = dwShareMode;
-	request.dwPreferredProtocols = dwPreferredProtocols;
-	request.dwInitialization = dwInitialization;
+	request.hCard = htonl(hCard);
+	request.dwShareMode = htonl(dwShareMode);
+	request.dwPreferredProtocols = htonl(dwPreferredProtocols);
+	request.dwInitialization = htonl(dwInitialization);
 
 	rv = MSGClientSendRequest(SCARD_RECONNECT,
 		PCSCLITE_CLIENT_ATTEMPTS, &request, sizeof(request), NULL, 0);
@@ -592,7 +604,7 @@ static LONG SCardReconnectTH(SCARDHANDLE hCard, DWORD dwShareMode,
 	if (rv)
 		return SCARD_E_READER_UNAVAILABLE;
 
-	*pdwActiveProtocol = reply.pdwActiveProtocol;
+	*pdwActiveProtocol = ntohl(reply.pdwActiveProtocol);
 
 	return SCardCheckReaderAvailability(psChannelMap[liIndex].readerName,
 		reply.header.rv);
@@ -651,8 +663,8 @@ static LONG SCardDisconnectTH(SCARDHANDLE hCard, DWORD dwDisposition)
 		return rv;
 	}
 
-	request.hCard = hCard;
-	request.dwDisposition = dwDisposition;
+	request.hCard = htonl(hCard);
+	request.dwDisposition = htonl(dwDisposition);
 
 	rv = MSGClientSendRequest(SCARD_DISCONNECT,
 		PCSCLITE_CLIENT_ATTEMPTS, &request, sizeof(request), NULL, 0);
@@ -690,7 +702,7 @@ LONG SCardBeginTransaction(SCARDHANDLE hCard)
 	if (rv)
 		return rv;
 
-	request.hCard = hCard;
+	request.hCard = htonl(hCard);
 
 	/*
 	 * Query the server every so often until the sharing violation ends
@@ -799,8 +811,8 @@ static LONG SCardEndTransactionTH(SCARDHANDLE hCard, DWORD dwDisposition)
 	if (rv)
 		return rv;
 
-	request.hCard = hCard;
-	request.dwDisposition = dwDisposition;
+	request.hCard = htonl(hCard);
+	request.dwDisposition = htonl(dwDisposition);
 
 	rv = MSGClientSendRequest(SCARD_END_TRANSACTION,
 		PCSCLITE_CLIENT_ATTEMPTS, &request, sizeof(request), NULL, 0);
@@ -843,7 +855,7 @@ static LONG SCardCancelTransactionTH(SCARDHANDLE hCard)
 	if (rv)
 		return rv;
 
-	request.hCard = hCard;
+	request.hCard = htonl(hCard);
 
 	rv = MSGClientSendRequest(SCARD_CANCEL_TRANSACTION,
 		PCSCLITE_CLIENT_ATTEMPTS, &request, sizeof(request), NULL, 0);
@@ -914,7 +926,7 @@ static LONG SCardStatusTH(SCARDHANDLE hCard, LPSTR mszReaderNames,
 	 * other applications such as reset/removed.  Only hCard is needed so
 	 * I will not fill in the other information. 
 	 */
-	request.hCard = hCard;
+	request.hCard = htonl(hCard);
 
 	rv = MSGClientSendRequest(SCARD_STATUS,
 		PCSCLITE_CLIENT_ATTEMPTS, &request, sizeof(request), NULL, 0);
@@ -985,13 +997,12 @@ static LONG SCardStatusTH(SCARDHANDLE hCard, LPSTR mszReaderNames,
 	}
 
 	*pcchReaderLen = dwReaderLen;
-	*pdwState = (readerStates[i])->readerState;
-	*pdwProtocol = (readerStates[i])->cardProtocol;
-	*pcbAtrLen = (readerStates[i])->cardAtrLength;
+	*pdwState = ntohl((readerStates[i])->readerState);
+	*pdwProtocol = ntohl((readerStates[i])->cardProtocol);
+	*pcbAtrLen = ntohl((readerStates[i])->cardAtrLength);
 
 	strcpy(mszReaderNames, psChannelMap[liIndex].readerName);
-	memcpy(pbAtr, (readerStates[i])->cardAtr,
-		(readerStates[i])->cardAtrLength);
+	memcpy(pbAtr, (readerStates[i])->cardAtr, ntohl((readerStates[i])->cardAtrLength));
 
 	return SCARD_S_SUCCESS;
 }
@@ -1228,7 +1239,7 @@ LONG SCardGetStatusChange(SCARDCONTEXT hContext, DWORD dwTimeout,
 				/*
 				 * Now we check all the Reader States 
 				 */
-				dwState = rContext->readerState;
+				dwState = ntohl(rContext->readerState);
 
 	/*********** Check if the reader is in the correct state ********/
 				if (dwState & SCARD_UNKNOWN)
@@ -1269,7 +1280,7 @@ LONG SCardGetStatusChange(SCARDCONTEXT hContext, DWORD dwTimeout,
 
 				if (dwState & SCARD_PRESENT)
 				{
-					currReader->cbAtr = rContext->cardAtrLength;
+					currReader->cbAtr = ntohl(rContext->cardAtrLength);
 					memcpy(currReader->rgbAtr, rContext->cardAtr,
 						currReader->cbAtr);
 				} else
@@ -1357,7 +1368,7 @@ LONG SCardGetStatusChange(SCARDCONTEXT hContext, DWORD dwTimeout,
 				/*
 				 * Now figure out sharing modes 
 				 */
-				if (rContext->readerSharing == -1)
+				if (ntohl(rContext->readerSharing) == -1)
 				{
 					currReader->dwEventState |= SCARD_STATE_EXCLUSIVE;
 					currReader->dwEventState &= ~SCARD_STATE_INUSE;
@@ -1366,7 +1377,7 @@ LONG SCardGetStatusChange(SCARDCONTEXT hContext, DWORD dwTimeout,
 						currReader->dwEventState |= SCARD_STATE_CHANGED;
 						dwBreakFlag = 1;
 					}
-				} else if (rContext->readerSharing >= 1)
+				} else if (ntohl(rContext->readerSharing) >= 1)
 				{
 					/*
 					 * A card must be inserted for it to be INUSE 
@@ -1383,7 +1394,7 @@ LONG SCardGetStatusChange(SCARDCONTEXT hContext, DWORD dwTimeout,
 							dwBreakFlag = 1;
 						}
 					}
-				} else if (rContext->readerSharing == 0)
+				} else if (ntohl(rContext->readerSharing) == 0)
 				{
 					currReader->dwEventState &= ~SCARD_STATE_INUSE;
 					currReader->dwEventState &= ~SCARD_STATE_EXCLUSIVE;
@@ -1545,9 +1556,9 @@ static LONG SCardTransmitTH(SCARDHANDLE hCard, LPCSCARD_IO_REQUEST pioSendPci,
 		return rv;
 	}
 
-	request.hCard = hCard;
+	request.hCard = htonl(hCard);
 	request.header.additional_data_size = cbSendLength;
-	request.cbMaxRecvLength = *pcbRecvLength;
+	request.cbMaxRecvLength = htonl(*pcbRecvLength);
 	memcpy(&request.pioSendPci, pioSendPci, sizeof(SCARD_IO_REQUEST));
 
 	rv = MSGClientSendRequest(SCARD_TRANSMIT,
@@ -1570,7 +1581,7 @@ static LONG SCardTransmitTH(SCARDHANDLE hCard, LPCSCARD_IO_REQUEST pioSendPci,
 		return SCARD_E_READER_UNAVAILABLE;
 	}
 
-	*pcbRecvLength = reply.cbRecvLength;
+	*pcbRecvLength = ntohl(reply.cbRecvLength);
 	if (reply.header.rv)
 	{
 		return reply.header.rv;
@@ -1917,7 +1928,7 @@ static LONG SCardGetServerContext(SCARDCONTEXT hContext,
 		establish_request request;
 		establish_reply reply;
 
-		request.dwScope = psContextMap[contextIndice].dwScope;
+		request.dwScope = htonl(psContextMap[contextIndice].dwScope);
 
 		rv = MSGClientSendRequest(SCARD_ESTABLISH_CONTEXT,
 			PCSCLITE_MCLIENT_ATTEMPTS, &request, sizeof(request), NULL, 0);
@@ -1942,7 +1953,7 @@ static LONG SCardGetServerContext(SCARDCONTEXT hContext,
 
 		psContextMap[contextIndice].contextConnectStatus =
 			CONTEXT_STATUS_CONNECTED;
-		psContextMap[contextIndice].hServerContext = reply.phContext;
+		psContextMap[contextIndice].hServerContext = ntohl(reply.phContext);
 	}
 
 	*phContext = psContextMap[contextIndice].hServerContext;

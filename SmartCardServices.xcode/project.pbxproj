@@ -122,11 +122,11 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.0</string>
+	<string>5.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>26726</string>
+	<string>26777</string>
 	<key>ifdCapabilities</key>
 	<string>0x00000000</string>
 	<key>ifdFriendlyName</key>
@@ -519,11 +519,11 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>26726</string>
+	<string>26777</string>
 </dict>
 </plist>
 ";
@@ -860,7 +860,7 @@
 				F511212A0272F895017BB957,
 			);
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 26726;
+				CURRENT_PROJECT_VERSION = 26777;
 				FRAMEWORK_SEARCH_PATHS = "";
 				INSTALL_PATH = /usr/bin;
 				OTHER_CFLAGS = "";
@@ -1046,13 +1046,13 @@
 			);
 			buildSettings = {
 				BUILD_VARIANTS = "normal debug";
-				CURRENT_PROJECT_VERSION = 26726;
+				CURRENT_PROJECT_VERSION = 26777;
 				FRAMEWORK_SEARCH_PATHS = "\"${BUILT_PRODUCTS_DIR}\" /usr/local/SecurityPieces/Components/Security /usr/local/SecurityPieces/Frameworks";
 				HEADER_SEARCH_PATHS = "/System/Library/Frameworks/CoreFoundation.framework/Headers /System/Library/Frameworks/IOKit.framework/Headers/usb /System/Library/Frameworks/IOKit.framework/Headers";
 				INSTALL_PATH = /usr/sbin;
-				OPT_CPPXFLAGS = "$(OPT_CXFLAGS) -fno-enforce-eh-specs -fno-implement-inlines -fcoalesce-templates";
+				OPT_CPPXFLAGS = "$(OPT_CXFLAGS)";
 				OPT_CXFLAGS = "-DNDEBUG -Os $(OPT_INLINEXFLAGS)";
-				OPT_INLINEXFLAGS = "-finline-functions --param max-inline-insns-single=100 --param max-inline-insns-auto=150 --param max-inline-insns=180 --param min-inline-insns=60";
+				OPT_INLINEXFLAGS = "-finline-functions";
 				OPT_LDXFLAGS = "-dead_strip";
 				OPT_LDXNOPIC = ",_nopic";
 				OTHER_ASFLAGS_debug = "$(OTHER_CFLAGS)";
@@ -1153,7 +1153,7 @@
 				F5294AD70090CAE601CD285A,
 			);
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 26726;
+				CURRENT_PROJECT_VERSION = 26777;
 				FRAMEWORK_SEARCH_PATHS = "";
 				INSTALL_PATH = /usr/bin;
 				OTHER_CFLAGS = "";
@@ -1212,14 +1212,14 @@
 			);
 			buildSettings = {
 				BUILD_VARIANTS = "normal debug";
-				CURRENT_PROJECT_VERSION = 26726;
+				CURRENT_PROJECT_VERSION = 26777;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 26726;
+				DYLIB_CURRENT_VERSION = 26777;
 				FRAMEWORK_VERSION = A;
 				INSTALL_PATH = "$(SYSTEM_LIBRARY_DIR)/Frameworks";
 				OPT_CFLAGS = "-DNDEBUG -Os $(OPT_INLINEFLAGS)";
-				OPT_CPPFLAGS = "$(OPT_CFLAGS) -fno-enforce-eh-specs -fno-implement-inlines -fcoalesce-templates";
-				OPT_INLINEFLAGS = "-finline-functions --param max-inline-insns-single=100 --param max-inline-insns-auto=150 --param max-inline-insns=180 --param min-inline-insns=60";
+				OPT_CPPFLAGS = "$(OPT_CFLAGS)";
+				OPT_INLINEFLAGS = "-finline-functions";
 				OPT_LDFLAGS = "-dead_strip";
 				OTHER_ASFLAGS_debug = "$(OTHER_CFLAGS)";
 				OTHER_ASFLAGS_normal = "-DNDEBUG $(OTHER_CFLAGS)";
@@ -1265,11 +1265,11 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.1</string>
+	<string>5.1.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>26726</string>
+	<string>26777</string>
 </dict>
 </plist>
 ";
@@ -1723,6 +1723,7 @@
 			fileRef = F52A94900254242101B94B21;
 			isa = PBXBuildFile;
 			settings = {
+				COMPILER_FLAGS = "-DYY_NO_UNPUT";
 			};
 		};
 		F52A94C00254242101B94B21 = {
@@ -2196,7 +2197,7 @@
 				F537A7CF0379ED7501B94948,
 			);
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 26726;
+				CURRENT_PROJECT_VERSION = 26777;
 				INSTALL_PATH = /usr/libexec/SmartCardServices/pkcs11;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-lcrypto";
@@ -2235,11 +2236,11 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.0</string>
+	<string>5.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>26726</string>
+	<string>26777</string>
 </dict>
 </plist>
 ";
@@ -2315,7 +2316,7 @@
 				F5448E000379EE2A01B94948,
 			);
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 26726;
+				CURRENT_PROJECT_VERSION = 26777;
 				INSTALL_PATH = /usr/libexec/SmartCardServices/services;
 				OTHER_CFLAGS = "-DMSC_TARGET_OSX=1";
 				OTHER_LDFLAGS = "";
@@ -2354,11 +2355,11 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.0</string>
+	<string>5.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>26726</string>
+	<string>26777</string>
 	<key>spAtrValue</key>
 	<string>3B751300009C02020102</string>
 	<key>spDefaultApplication</key>
@@ -2418,7 +2419,7 @@
 				F5448E070379EE3601B94948,
 			);
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 26726;
+				CURRENT_PROJECT_VERSION = 26777;
 				INSTALL_PATH = /usr/libexec/SmartCardServices/services;
 				OTHER_CFLAGS = "-DMSC_TARGET_OSX=1";
 				OTHER_LDFLAGS = "";
@@ -2457,11 +2458,11 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.0</string>
+	<string>5.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>26726</string>
+	<string>26777</string>
 	<key>spAtrValue</key>
 	<array>
 		<string>3B6500009C02020102</string>
@@ -2525,7 +2526,7 @@
 				F5448E0E0379EE6401B94948,
 			);
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 26726;
+				CURRENT_PROJECT_VERSION = 26777;
 				INSTALL_PATH = /usr/libexec/SmartCardServices/services;
 				OTHER_CFLAGS = "-DMSC_TARGET_OSX=1";
 				OTHER_LDFLAGS = "";
@@ -2564,11 +2565,11 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.0</string>
+	<string>5.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>26726</string>
+	<string>26777</string>
 	<key>spAtrValue</key>
 	<string>3B959440FF6301010201</string>
 	<key>spDefaultApplication</key>

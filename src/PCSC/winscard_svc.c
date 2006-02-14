@@ -78,6 +78,7 @@ static struct _psChannelMap
 psChannelMap[PCSCLITE_MAX_CHANNELS];
 
 LONG MSGCheckHandleAssociation(DWORD, SCARDHANDLE);
+void MSGFixByteOrder(request_object *requestObj);
 
 /*
  * A list of local functions used to keep track of clients and their
@@ -149,7 +150,8 @@ void MSGServerCleanupCommonChannel(int sockValue, char *pcFilePath)
 int MSGServerProcessCommonChannelRequest()
 {
 
-	int i, clnt_len;
+	int i;
+	socklen_t clnt_len;
 	int new_sock;
 	struct sockaddr_un clnt_addr;
 	int one;
@@ -264,6 +266,11 @@ int MSGServerProcessEvents(request_object *requestObj, int blockAmount)
 				/* Read the request header from the client socket */
 				rv = MSGRecieveData(clientSockets[i].sd,
 					PCSCLITE_SERVER_ATTEMPTS, header, sizeof(*header));
+				/* Fix byte order of received data */
+				header->size = ntohl(header->size);
+				header->additional_data_size = ntohl(header->additional_data_size);
+				header->command = ntohl(header->command);
+				
 				if (!rv)
 				{
 					/* Receive the remainder of the request. */
@@ -293,6 +300,7 @@ int MSGServerProcessEvents(request_object *requestObj, int blockAmount)
 					}
 				}
 
+				
 				/*
 				 * Set the identifier handle 
 				 */
@@ -309,6 +317,10 @@ int MSGServerProcessEvents(request_object *requestObj, int blockAmount)
 				}
 
 				requestObj->mtype = CMD_FUNCTION;
+				
+				/* Fix up the byte orders */
+				MSGFixByteOrder(requestObj);
+				
 				return 1;
 			}
 		}
@@ -343,6 +355,8 @@ LONG MSGFunctionDemarshall(const request_object *request, reply_object *reply)
 		if (replyh->rv == SCARD_S_SUCCESS)
 			replyh->rv = MSGAddContext(replym->establish.phContext,
 				request->socket);
+		/* Byte ordering */
+		replym->establish.phContext = htonl(replym->establish.phContext);
 		break;
 
 	case SCARD_RELEASE_CONTEXT:
@@ -370,6 +384,10 @@ LONG MSGFunctionDemarshall(const request_object *request, reply_object *reply)
 		if (replyh->rv == SCARD_S_SUCCESS)
 			replyh->rv = MSGAddHandle(requestm->connect.hContext,
 				request->socket, replym->connect.phCard);
+
+		/* Byte ordering */
+		replym->connect.phCard = htonl(replym->connect.phCard);
+		replym->connect.pdwActiveProtocol = htonl(replym->connect.pdwActiveProtocol);
 		break;
 
 	case SCARD_RECONNECT:
@@ -385,6 +403,9 @@ LONG MSGFunctionDemarshall(const request_object *request, reply_object *reply)
 			requestm->reconnect.dwPreferredProtocols,
 			requestm->reconnect.dwInitialization,
 			&replym->reconnect.pdwActiveProtocol);
+
+		/* Byte ordering */
+		replym->reconnect.pdwActiveProtocol = htonl(replym->reconnect.pdwActiveProtocol);
 		break;
 
 	case SCARD_DISCONNECT:
@@ -452,6 +473,13 @@ LONG MSGFunctionDemarshall(const request_object *request, reply_object *reply)
 			&replym->status.pdwProtocol,
 			replym->status.pbAtr,
 			&replym->status.pcbAtrLen);
+
+		/* Byte ordering */
+		replym->status.pcchReaderLen = htonl(replym->status.pcchReaderLen);
+		replym->status.pdwState = htonl(replym->status.pdwState);
+		replym->status.pdwProtocol = htonl(replym->status.pdwProtocol);
+		replym->status.pcbAtrLen = htonl(replym->status.pcbAtrLen);
+
 		break;
 
 	case SCARD_TRANSMIT:
@@ -496,14 +524,26 @@ LONG MSGFunctionDemarshall(const request_object *request, reply_object *reply)
 		}
 
 		if (replyh->rv == SCARD_S_SUCCESS)
-			replyh->additional_data_size =
-				replym->transmit.cbRecvLength;
+			replyh->additional_data_size = replym->transmit.cbRecvLength;
+
+		/* Byte ordering */
+		replym->transmit.pioRecvPci.dwProtocol = htonl(replym->transmit.pioRecvPci.dwProtocol);
+		replym->transmit.pioRecvPci.cbPciLength = htonl(replym->transmit.pioRecvPci.cbPciLength);
+		replym->transmit.cbRecvLength = htonl(replym->transmit.cbRecvLength);
+
 		break;
 
 	default:
 		return -1;
 	}
 
+	/* Do byte reversals in reply header prior to sending through the socket.
+		Any command specific reversals (i.e. non-header) need to be done above */
+
+	replyh->size = htonl(replyh->size);
+	replyh->additional_data_size = htonl(replyh->additional_data_size);
+	replyh->rv = htonl(replyh->rv);
+	
 	return 0;
 }
 
@@ -694,3 +734,77 @@ LONG MSGCleanupClient(request_object *request)
 	}
 	return 0;
 }
+
+void MSGFixByteOrder(request_object *requestObj)
+{
+	/* Do any necessary byte swapping on a response */
+//	requestObj->mtype = ntohl(requestObj->mtype);		/* One of enum pcsc_adm_commands */
+//	requestObj->socket = ntohl(requestObj->socket);
+	if (requestObj->mtype != CMD_FUNCTION)
+		return;
+	switch (requestObj->message.header.command)
+	{
+	case SCARD_ESTABLISH_CONTEXT:
+		if (requestObj->message.header.size == sizeof(establish_request))
+			requestObj->message.establish.dwScope = ntohl(requestObj->message.establish.dwScope);
+		break;
+	case SCARD_RELEASE_CONTEXT:
+		if (requestObj->message.header.size == sizeof(release_request))
+			requestObj->message.release.hContext = ntohl(requestObj->message.release.hContext);
+		break;
+	case SCARD_CONNECT:
+		if (requestObj->message.header.size == sizeof(connect_request))
+		{
+			requestObj->message.connect.hContext = ntohl(requestObj->message.connect.hContext);
+			requestObj->message.connect.dwShareMode = ntohl(requestObj->message.connect.dwShareMode);
+			requestObj->message.connect.dwPreferredProtocols = ntohl(requestObj->message.connect.dwPreferredProtocols);
+		}
+		break;
+	case SCARD_RECONNECT:
+		if (requestObj->message.header.size == sizeof(reconnect_request))
+		{
+			requestObj->message.reconnect.hCard = ntohl(requestObj->message.reconnect.hCard);
+			requestObj->message.reconnect.dwShareMode = ntohl(requestObj->message.reconnect.dwShareMode);
+			requestObj->message.reconnect.dwPreferredProtocols = ntohl(requestObj->message.reconnect.dwPreferredProtocols);
+			requestObj->message.reconnect.dwInitialization = ntohl(requestObj->message.reconnect.dwInitialization);
+		}
+		break;
+	case SCARD_DISCONNECT:
+		if (requestObj->message.header.size == sizeof(disconnect_request))
+		{
+			requestObj->message.disconnect.hCard = ntohl(requestObj->message.disconnect.hCard);
+			requestObj->message.disconnect.dwDisposition = ntohl(requestObj->message.disconnect.dwDisposition);
+		}
+		break;
+	case SCARD_BEGIN_TRANSACTION:
+		if (requestObj->message.header.size == sizeof(begin_request))
+			requestObj->message.begin.hCard = ntohl(requestObj->message.begin.hCard);
+		break;
+	case SCARD_END_TRANSACTION:
+		if (requestObj->message.header.size == sizeof(end_request))
+		{
+			requestObj->message.end.hCard = ntohl(requestObj->message.end.hCard);
+			requestObj->message.end.dwDisposition = ntohl(requestObj->message.end.dwDisposition);
+		}
+		break;
+	case SCARD_CANCEL_TRANSACTION:
+		if (requestObj->message.header.size == sizeof(cancel_request))
+			requestObj->message.cancel.hCard = ntohl(requestObj->message.cancel.hCard);
+		break;
+	case SCARD_STATUS:
+		if (requestObj->message.header.size == sizeof(status_request))
+		{
+			requestObj->message.status.hCard = ntohl(requestObj->message.status.hCard);
+			requestObj->message.status.cbMaxAtrLen = ntohl(requestObj->message.status.cbMaxAtrLen);
+		}
+		break;
+	case SCARD_TRANSMIT:
+		if (requestObj->message.header.size == sizeof(transmit_request))
+		{
+			requestObj->message.transmit.hCard = ntohl(requestObj->message.transmit.hCard);
+			requestObj->message.transmit.cbMaxRecvLength = ntohl(requestObj->message.transmit.cbMaxRecvLength);
+		}
+		break;
+	}
+}
+

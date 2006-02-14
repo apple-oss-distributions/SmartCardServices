@@ -26,7 +26,7 @@
 			<corcoran@linuxnet.com>
 	Purpose: This handles debugging. 
 	            
-$Id: debuglog.c,v 1.2 2003/02/13 20:06:24 ghoo Exp $
+$Id: debuglog.c,v 1.3 2005/06/29 20:09:20 perry Exp $
 
 ********************************************************************/
 
@@ -100,7 +100,7 @@ void debug_msg(const char *fmt, ...)
 void debug_xxd(const char *msg, const unsigned char *buffer, const int len)
 {
 	int i;
-	unsigned char *c, *debug_buf_end;
+	char *c, *debug_buf_end;
 
 	if (lSuppress != DEBUGLOG_LOG_ENTRIES)
 		return;
@@ -177,14 +177,14 @@ void DebugLogCategory(const int category, const char *buffer, const int len)
 {
 	if ((category & DEBUG_CATEGORY_APDU)
 		&& (debug_category & DEBUG_CATEGORY_APDU))
-		debug_xxd("APDU: ", buffer, len);
+		debug_xxd("APDU: ", (const unsigned char *)buffer, len);
 
 	if ((category & DEBUG_CATEGORY_SW)
 		&& (debug_category & DEBUG_CATEGORY_APDU))
-		debug_xxd("SW: ", buffer, len);
+		debug_xxd("SW: ", (const unsigned char *)buffer, len);
 }
 
-LPSTR pcsc_stringify_error(const LONG Error)
+char *pcsc_stringify_error(const int32_t Error)
 {
 
 	static char strError[75];

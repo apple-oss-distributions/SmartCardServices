@@ -36,33 +36,31 @@
 #ifndef __wintypes_h__
 #define __wintypes_h__
 
-#include <stdint.h>
-
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
 #ifndef BYTE
-	typedef uint8_t BYTE;
+	typedef unsigned char BYTE;
 #endif
-	typedef uint8_t UCHAR;
-	typedef uint8_t *PUCHAR;
-	typedef uint16_t USHORT;
+	typedef unsigned char UCHAR;
+	typedef unsigned char *PUCHAR;
+	typedef unsigned short USHORT;
 
 #ifndef __COREFOUNDATION_CFPLUGINCOM__
-	typedef uint32_t ULONG;
+	typedef unsigned long ULONG;
 	typedef void *LPVOID;
-	typedef int16_t BOOL;
+	typedef short BOOL;
 #endif
 
-	typedef uint32_t *PULONG;
+	typedef unsigned long *PULONG;
 	typedef const void *LPCVOID;
-	typedef uint32_t DWORD;
-	typedef uint32_t *PDWORD;
-	typedef uint16_t WORD;
-	typedef int32_t LONG;
-	typedef int32_t RESPONSECODE;
+	typedef unsigned long DWORD;
+	typedef unsigned long *PDWORD;
+        typedef unsigned short WORD;       /* H. Bragstad Schlumberger */
+	typedef long LONG;
+	typedef long RESPONSECODE;
 	typedef const char *LPCSTR;
 	typedef const BYTE *LPCBYTE;
 	typedef BYTE *LPBYTE;

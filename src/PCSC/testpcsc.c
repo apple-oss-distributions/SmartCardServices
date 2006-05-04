@@ -45,9 +45,9 @@ int main(int argc, char **argv)
 	SCARDHANDLE hCard;
 	SCARDCONTEXT hContext;
 	SCARD_READERSTATE_A rgReaderStates[1];
-	uint32_t dwReaderLen, dwState, dwProt, dwAtrLen;
+	unsigned long dwReaderLen, dwState, dwProt, dwAtrLen;
 	// unsigned long dwSendLength, dwRecvLength;
-	uint32_t dwPref, dwReaders;
+	unsigned long dwPref, dwReaders;
 	char *pcReaders, *mszReaders;
 	unsigned char pbAtr[MAX_ATR_SIZE];
 	const char *mszGroups;
@@ -177,9 +177,9 @@ int main(int argc, char **argv)
 	printf("%s\n", pcsc_stringify_error(rv));
 
 	printf("Current Reader Name              : %s\n", pcReaders);
-	printf("Current Reader State             : %x\n", dwState);
-	printf("Current Reader Protocol          : %x\n", dwProt - 1);
-	printf("Current Reader ATR Size          : %x\n", dwAtrLen);
+	printf("Current Reader State             : %lx\n", dwState);
+	printf("Current Reader Protocol          : %lx\n", dwProt - 1);
+	printf("Current Reader ATR Size          : %lx\n", dwAtrLen);
 	printf("Current Reader ATR Value         : ");
 
 	for (i = 0; i < dwAtrLen; i++)

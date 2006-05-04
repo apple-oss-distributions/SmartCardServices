@@ -2011,7 +2011,7 @@ MSC_RV pcscToMSC(MSCLong32 pcscCode)
 	}
 }
 
-char *msc_error(unsigned long int errorCode)	//MSC_RV
+char *msc_error(MSC_RV errorCode)
 {
 
 	static char message[500];
@@ -2104,7 +2104,7 @@ char *msc_error(unsigned long int errorCode)	//MSC_RV
 		break;
 
 	default:
-		sprintf(message, "Unknown SW: %04lu", errorCode);
+		sprintf(message, "Unknown SW: %04ld", errorCode);
 		break;
 	}
 

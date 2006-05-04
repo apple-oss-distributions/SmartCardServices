@@ -96,7 +96,7 @@ void SVCServiceRunLoop()
 {
 
 	char errMessage[200];
-	request_object request = {};
+	request_object request;
 	int currHandle, rsp;
 
 	currHandle = 0, rsp = 0;
@@ -129,7 +129,7 @@ void SVCServiceRunLoop()
 	/*
 	 * Set up the search for USB/PCMCIA devices 
 	 */
-	//HPSearchHotPluggables();
+	HPSearchHotPluggables();
 	HPRegisterForHotplugEvents();
 
 #ifdef PCSC_TARGET_OSX
@@ -167,7 +167,7 @@ void SVCServiceRunLoop()
 		case 1:
 			if (request.mtype == CMD_FUNCTION)
 			{
-				reply_object reply = {0,};
+				reply_object reply;
 				reply_header *replyh = &reply.message.header;
 
 				reply.additional_data = NULL;
@@ -181,21 +181,22 @@ void SVCServiceRunLoop()
 				   also get rid of this client. */
 				if (rsp)
 					continue;
-				/* note that fields in reply are in byte network order for sending */
+
 				if (!reply.additional_data)
 					replyh->additional_data_size = 0;
 				rsp = MSGSendData(request.socket, PCSCLITE_SERVER_ATTEMPTS,
-					replyh, ntohl(replyh->size));
+					replyh, replyh->size);
 				if (!rsp && replyh->additional_data_size)
 				{
 					rsp = MSGSendData(request.socket, PCSCLITE_SERVER_ATTEMPTS,
-						reply.additional_data, ntohl(replyh->additional_data_size));
+						reply.additional_data, replyh->additional_data_size);
 				}
 
 				if (reply.additional_data)
 				{
 					if (replyh->additional_data_size)
-						memset(reply.additional_data, 0, ntohl(replyh->additional_data_size));
+						memset(reply.additional_data, 0,
+							replyh->additional_data_size);
 					free(reply.additional_data);
 				}
 

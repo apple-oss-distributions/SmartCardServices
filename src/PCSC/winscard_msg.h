@@ -58,21 +58,21 @@ extern "C"
 	typedef struct request_header_struct
 	{
 		 // Size of the request struct including the header
-		uint32_t size;
+		unsigned int size;
 
 		// Size of the data blob following the request struct
-  		uint32_t additional_data_size;
+  		unsigned int additional_data_size;
 
-		uint32_t command;
+		unsigned int command;
 	} request_header;
 
 	typedef struct reply_header_struct
 	{
 		 // Size of the reply struct including the header
-		uint32_t size;
+		unsigned int size;
 
 		// Size of the data blob following the reply struct
-  		uint32_t additional_data_size;
+  		unsigned int additional_data_size;
 
 		LONG rv;
 	} reply_header;

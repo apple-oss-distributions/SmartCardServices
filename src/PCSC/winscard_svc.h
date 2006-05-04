@@ -33,7 +33,6 @@
 #ifndef __winscard_svc_h__
 #define __winscard_svc_h__
 
-#include <stdint.h>
 #include "winscard_msg.h"
 
 #ifdef __cplusplus
@@ -79,8 +78,8 @@ extern "C"
 
 	typedef struct request_object_struct
 	{
-		uint32_t mtype; /* One of enum pcsc_adm_commands */
-		uint32_t socket;
+		unsigned int mtype; /* One of enum pcsc_adm_commands */
+		unsigned int socket;
 		void *additional_data;
 		request_message message;
 	} request_object;

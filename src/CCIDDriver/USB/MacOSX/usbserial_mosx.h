@@ -12,8 +12,8 @@
 #define _USBSERIAL_MOSX_H_
 
 typedef struct _intFace {
-    IOUSBInterfaceInterface245  **iface;
-    IOUSBDeviceInterface245     **dev;
+    IOUSBInterfaceInterface182  **iface;
+    IOUSBDeviceInterface182     **dev;
     UInt32 						usbAddr;
     UInt8						inPipeRef;
     UInt8						outPipeRef;

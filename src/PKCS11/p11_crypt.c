@@ -118,7 +118,7 @@ CK_DEFINE_FUNCTION(CK_RV, C_Encrypt)
                                             t_data1,
                                             t_data1_len,
                                             pEncryptedData,
-                                            (MSCPULong32)pulEncryptedDataLen)))
+                                            pulEncryptedDataLen)))
         {
             P11_ERR("MSCComputeCrypt failed");
             rv = CKR_FUNCTION_FAILED;
@@ -280,7 +280,7 @@ CK_DEFINE_FUNCTION(CK_RV, C_Decrypt)
         /* Intentionally blank */;
     else if (session->sign_mech.mechanism == CKM_RSA_PKCS)
     {
-        MSCULong32  ulValue, lenValue;
+        CK_ULONG  ulValue, lenValue;
         /* Fixme: this is not fully implemented since it doesn't look at the mechanism parameter */
         if (MSC_ERROR(msc_GetCapabilities(&st.slots[session->session.slotID - 1].conn,
                         MSC_TAG_CAPABLE_RSA,
@@ -310,7 +310,7 @@ CK_DEFINE_FUNCTION(CK_RV, C_Decrypt)
                                        pEncryptedData,
                                        ulEncryptedDataLen,
                                        t_data1,
-                                       (MSCPULong32)&t_data1_len)))
+                                       &t_data1_len)))
         {
             P11_ERR("MSCComputeCrypt failed");
             rv = CKR_FUNCTION_FAILED;
@@ -347,7 +347,7 @@ CK_DEFINE_FUNCTION(CK_RV, C_Decrypt)
                             pEncryptedData,
                             ulEncryptedDataLen,
                             t_data1,
-                            (MSCPULong32)&t_data1_len)))
+                            &t_data1_len)))
             {
                 P11_ERR("MSCComputeCrypt failed");
                 rv = CKR_FUNCTION_FAILED;

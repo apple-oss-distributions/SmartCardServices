@@ -220,11 +220,11 @@ LONG EHSpawnEventHandler(PREADER_CONTEXT rContext)
 	strcpy((readerStates[i])->readerName, rContext->lpcReader);
 	memcpy((readerStates[i])->cardAtr, rContext->ucAtr,
 		rContext->dwAtrLen);
-	(readerStates[i])->readerID = i + 100;
-	(readerStates[i])->readerState = rContext->dwStatus;
-	(readerStates[i])->readerSharing = rContext->dwContexts;
-	(readerStates[i])->cardAtrLength = rContext->dwAtrLen;
-	(readerStates[i])->cardProtocol = rContext->dwProtocol;
+	(readerStates[i])->readerID = htonl(i + 100);
+	(readerStates[i])->readerState = htonl(rContext->dwStatus);
+	(readerStates[i])->readerSharing = htonl(rContext->dwContexts);
+	(readerStates[i])->cardAtrLength = htonl(rContext->dwAtrLen);
+	(readerStates[i])->cardProtocol = htonl(rContext->dwProtocol);
 	/*
 	 * So the thread can access this array indice 
 	 */
@@ -320,11 +320,11 @@ void EHStatusHandlerThread(PREADER_CONTEXT rContext)
 	/*
 	 * Set all the public attributes to this reader 
 	 */
-	(readerStates[i])->readerState = rContext->dwStatus;
-	(readerStates[i])->cardAtrLength = rContext->dwAtrLen;
-	(readerStates[i])->cardProtocol = rContext->dwProtocol;
-	(readerStates[i])->readerSharing = dwReaderSharing =
-		rContext->dwContexts;
+	(readerStates[i])->readerState = htonl(rContext->dwStatus);
+	(readerStates[i])->cardAtrLength = htonl(rContext->dwAtrLen);
+	(readerStates[i])->cardProtocol = htonl(rContext->dwProtocol);
+	dwReaderSharing = rContext->dwContexts;
+	(readerStates[i])->readerSharing = htonl(dwReaderSharing);	
 	memcpy((readerStates[i])->cardAtr, rContext->ucAtr,
 		rContext->dwAtrLen);
 
@@ -362,9 +362,9 @@ void EHStatusHandlerThread(PREADER_CONTEXT rContext)
 			/*
 			 * Set all the public attributes to this reader 
 			 */
-			(readerStates[i])->readerState = rContext->dwStatus;
-			(readerStates[i])->cardAtrLength = rContext->dwAtrLen;
-			(readerStates[i])->cardProtocol = rContext->dwProtocol;
+			(readerStates[i])->readerState = htonl(rContext->dwStatus);
+			(readerStates[i])->cardAtrLength = htonl(rContext->dwAtrLen);
+			(readerStates[i])->cardProtocol = htonl(rContext->dwProtocol);
 			memcpy((readerStates[i])->cardAtr, rContext->ucAtr,
 				rContext->dwAtrLen);
 			SYS_MMapSynchronize((void *) readerStates[i], pageSize);
@@ -421,9 +421,9 @@ void EHStatusHandlerThread(PREADER_CONTEXT rContext)
 				/*
 				 * Set all the public attributes to this reader 
 				 */
-				(readerStates[i])->readerState = rContext->dwStatus;
-				(readerStates[i])->cardAtrLength = rContext->dwAtrLen;
-				(readerStates[i])->cardProtocol = rContext->dwProtocol;
+				(readerStates[i])->readerState = htonl(rContext->dwStatus);
+				(readerStates[i])->cardAtrLength = htonl(rContext->dwAtrLen);
+				(readerStates[i])->cardProtocol = htonl(rContext->dwProtocol);
 				memcpy((readerStates[i])->cardAtr, rContext->ucAtr,
 					rContext->dwAtrLen);
 
@@ -480,9 +480,9 @@ void EHStatusHandlerThread(PREADER_CONTEXT rContext)
 				/*
 				 * Set all the public attributes to this reader 
 				 */
-				(readerStates[i])->readerState = rContext->dwStatus;
-				(readerStates[i])->cardAtrLength = rContext->dwAtrLen;
-				(readerStates[i])->cardProtocol = rContext->dwProtocol;
+				(readerStates[i])->readerState = htonl(rContext->dwStatus);
+				(readerStates[i])->cardAtrLength = htonl(rContext->dwAtrLen);
+				(readerStates[i])->cardProtocol = htonl(rContext->dwProtocol);
 				memcpy((readerStates[i])->cardAtr, rContext->ucAtr,
 					rContext->dwAtrLen);
 
@@ -527,7 +527,7 @@ void EHStatusHandlerThread(PREADER_CONTEXT rContext)
 		if (dwReaderSharing != rContext->dwContexts)
 		{
 			dwReaderSharing = rContext->dwContexts;
-			(readerStates[i])->readerSharing = dwReaderSharing;
+			(readerStates[i])->readerSharing = htonl(dwReaderSharing);
 			SYS_MMapSynchronize((void *) readerStates[i], pageSize);
 		}
 
@@ -538,6 +538,6 @@ void EHStatusHandlerThread(PREADER_CONTEXT rContext)
 void EHSetSharingEvent(PREADER_CONTEXT rContext, DWORD dwValue)
 {
 
-	(readerStates[rContext->dwPublicID])->lockState = dwValue;
+	(readerStates[rContext->dwPublicID])->lockState = htonl(dwValue);
 
 }

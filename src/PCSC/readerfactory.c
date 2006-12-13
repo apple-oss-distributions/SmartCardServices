@@ -605,7 +605,7 @@ LONG RFSetReaderName(PREADER_CONTEXT rContext, LPSTR readerName,
 		 */
 		if (currentDigit == -1)
 		{
-			sprintf(rContext->lpcReader, "%s 0 %ld", readerName, dwSlot);
+			sprintf(rContext->lpcReader, "%s 0 %u", readerName, dwSlot);
 			/*
 			 * Set the slot in 0xDDDDCCCC 
 			 */
@@ -631,11 +631,11 @@ LONG RFSetReaderName(PREADER_CONTEXT rContext, LPSTR readerName,
 
 			if (i <= 9)
 			{
-				sprintf(rContext->lpcReader, "%s %d %ld", readerName, i,
+				sprintf(rContext->lpcReader, "%s %d %u", readerName, i,
 					dwSlot);
 			} else
 			{
-				sprintf(rContext->lpcReader, "%s %c %ld", readerName,
+				sprintf(rContext->lpcReader, "%s %c %u", readerName,
 					'A' + (i % 10), dwSlot);
 			}
 
@@ -655,11 +655,11 @@ LONG RFSetReaderName(PREADER_CONTEXT rContext, LPSTR readerName,
 	{
 		if (lastDigit <= 9 && dwSlot <= 9)
 		{
-			sprintf(rContext->lpcReader, "%s %d %ld", readerName,
+			sprintf(rContext->lpcReader, "%s %d %u", readerName,
 				lastDigit, dwSlot);
 		} else if (lastDigit > 9 && dwSlot <= 9)
 		{
-			sprintf(rContext->lpcReader, "%s %c %ld", readerName,
+			sprintf(rContext->lpcReader, "%s %c %u", readerName,
 				'A' + (lastDigit % 10), dwSlot);
 		} else if (lastDigit <= 9 && dwSlot > 9)
 		{

@@ -87,7 +87,7 @@ extern "C"
 	int DebugLogSetCategory(const int);
 	void DebugLogCategory(const int, const char *, const int);
 
-	char *pcsc_stringify_error(const long);
+	char *pcsc_stringify_error(const int32_t);
 
 #ifdef __cplusplus
 }

@@ -687,7 +687,7 @@ TrRv SetupConnectionsUSB( DWORD lun, BYTE ConfigDescNb, BYTE interruptPipe)
     if (kr)
     {
         LogMessage( __FILE__,  __LINE__, LogLevelCritical,
-                    "ERR: unable to get the configuration\n");
+                    "ERR: unable to get the configuration: 0x%08X\n", kr);
         return TrRv_ERR;
     }
 
@@ -702,7 +702,7 @@ TrRv SetupConnectionsUSB( DWORD lun, BYTE ConfigDescNb, BYTE interruptPipe)
     if (kr)
     {
         LogMessage( __FILE__,  __LINE__, LogLevelCritical,
-                    "ERR: unable to set the configuration\n");
+                    "ERR: unable to set the configuration: 0x%08X\n", kr);
         return TrRv_ERR;
     }
 

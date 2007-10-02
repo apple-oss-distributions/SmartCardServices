@@ -153,6 +153,7 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
+//	printf("   context handle: %d [0x%08X]\n", hContext, hContext);
 	printf("Testing SCardConnect             : ");
 	rv = SCardConnect(hContext, &mszReaders[iList[iReader]],
 		SCARD_SHARE_SHARED, SCARD_PROTOCOL_T0 | SCARD_PROTOCOL_T1,
@@ -170,7 +171,8 @@ int main(int argc, char **argv)
 
 	dwReaderLen = 50;
 	pcReaders = (char *) malloc(sizeof(char) * 50);
-
+	dwAtrLen = MAX_ATR_SIZE;
+	
 	rv = SCardStatus(hCard, pcReaders, &dwReaderLen, &dwState, &dwProt,
 		pbAtr, &dwAtrLen);
 
